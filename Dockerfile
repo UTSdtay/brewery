@@ -6,6 +6,8 @@ RUN pip3 install -r requirements.txt
 
 COPY ./app /app
 
+COPY ./src /src
+
 COPY ./models /models
 
 CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py", "main:app"]
