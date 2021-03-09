@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
-from pytorch import torch.load
+from torch import torch.load
 import pandas as pd
 
 app = FastAPI()
