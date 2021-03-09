@@ -5,7 +5,7 @@ import pandas as pd
 
 app = FastAPI()
 
-beer_select = nn.load('./models/pytorch_beer_selector.pt')
+beer_select = nn.load('../models/pytorch_beer_selector.pt')
 
 @app.get("/")
 def read_root():
