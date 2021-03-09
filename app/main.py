@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
-from torch import load
+import torch as nn
 import pandas as pd
 
 app = FastAPI()
 
-beer_select = torch.load('../models/pytorch_beer_selector.pt')
+beer_select = nn.load('../models/pytorch_beer_selector.pt')
 
 @app.get("/")
 def read_root():
