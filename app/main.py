@@ -24,10 +24,10 @@ def format_features(brewery_name: str,	review_aroma:float, review_appearance:flo
         'Taste Score': [review_taste]
     }
 	
-@app.get("/brewery/beerselection")
-def predict(brewery_name: str,	review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
-    features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
-    obs = pd.DataFrame(features)
-    pred = beer_select.predict(obs)
-    return JSONResponse(pred.tolist())
+#@app.get("/brewery/beerselection")
+#def predict(brewery_name: str,	review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
+#    features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
+#    obs = pd.DataFrame(features)
+#    pred = beer_select.predict(obs)
+#    return JSONResponse(pred.tolist())
 	
