@@ -1,13 +1,11 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+FROM jupyter/scipy-notebook:0ce64578df46
 
-COPY requirements.txt .
+RUN pip install torch==1.7.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 
-RUN pip3 install -r requirements.txt
+RUN conda install category_encoders
 
-COPY ./app /app
+ENV PYTHONPATH "${PYTHONPATH}:/home/jovyan/work"
 
-COPY ./src /src
+RUN echo "export PYTHONPATH=/home/jovyan/work" >> ~/.bashrc
 
-COPY ./models /models
-
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py", "main:app"]
+WORKDIR /home/jovyan/work
