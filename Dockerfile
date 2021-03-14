@@ -6,6 +6,12 @@ RUN pip3 install -r requirements.txt
 
 COPY ./app /app
 
-COPY ./models /models
+COPY ./app/brewnames.joblib
+
+COPY ./app/stdscale.joblib
+
+COPY ./app/target.joblib
+
+COPY ./app/pytorch_beer_selector.pt
 
 CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py", "main:app"]
