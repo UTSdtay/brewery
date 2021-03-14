@@ -8,6 +8,7 @@ from src.models.pytorch import PytorchMultiClass
 
 app = FastAPI()
 data_reader = DataReader()
+num_cols = ['review_aroma', 'review_appearance', 'review_palate', 'review_taste']
 
 @app.get("/")
 def read_root():
@@ -72,4 +73,4 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
 def print_model():
     beer_select = PytorchMultiClass(5)
     beer_select.load_state_dict(torch.load('pytorch_beer_selector.pt'))
-    return JSONResponse(beer_select.tolist())
+    return JSONResponse(print(beer_select).tolist())[0]
