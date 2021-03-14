@@ -9,8 +9,6 @@ from src.models.pytorch import PytorchMultiClass
 app = FastAPI()
 data_reader = DataReader()
 
-beer_select.load_state_dict(torch.load('../app/src/models/pytorch_beer_selector.pt'))
-
 @app.get("/")
 def read_root():
     return {"Hello": "Beers"}
