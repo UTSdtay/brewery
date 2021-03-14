@@ -39,10 +39,10 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
     obs = torch.from_numpy(obs)
     device = get_device()
     beer_select = PytorchMultiClass(obs.shape[1])
-    beer_select.load_state_dict(torch.load('../app/src/models/pytorch_beer_selector.pt'))
+    beer_select.load_state_dict(torch.load('../src/models/pytorch_beer_selector.pt'))
     beer_select.eval()
     obs = obs.float()
     output = beer_select(obs).argmax(dim=1)
     target_encode = joblib.load('../src/models/target.joblib')
     pred = target_encode.inverse_transform(output)
-    return pred
+    return JSONresponse(pred)
