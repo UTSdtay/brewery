@@ -12,7 +12,7 @@ num_cols = ['review_aroma', 'review_appearance', 'review_palate', 'review_taste'
 
 @app.get("/")
 def read_root():
-    return {"Hello": "The objective of this app is to produce beer selections based on the inputs: brewery_name, review_appearance, review_aroma, review_palate, review_taste. I hope you enjoy it!"}
+    return {"Hello": "The objective of this app is to produce beer selections based on the inputs: brewery_name, review_appearance, review_aroma, review_palate, review_taste. I hope you enjoy it! There is /health/ (GET) for a welcome message, /beer/type for single beer predictions, beers/type for multiple beer selections and /model/architecture/ will print out the NN model architecture in text. You can find this app at https://immense-hamlet-88097.herokuapp.com/docs"}
 	
 @app.get('/health', status_code=200)
 def healthcheck():
