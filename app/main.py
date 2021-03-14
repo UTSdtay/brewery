@@ -45,4 +45,4 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
     output = beer_select(obs).argmax(dim=1)
     target_encode = joblib.load('../src/models/target.joblib')
     pred = target_encode.inverse_transform(output)
-    return JSONresponse(pred)
+    return print(pred)
