@@ -4,7 +4,7 @@ import torch
 import joblib
 import pandas as pd
 from src.models.data_process import DataReader
-from pytorch import PytorchMultiClass
+from src.models.pytorch import PytorchMultiClass
 
 app = FastAPI()
 data_reader = DataReader()
