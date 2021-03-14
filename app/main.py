@@ -73,4 +73,4 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
 def print_model():
     beer_select = PytorchMultiClass(5)
     beer_select.load_state_dict(torch.load('pytorch_beer_selector.pt'))
-    return JSONResponse(print(beer_select).tolist())
+    return JSONResponse(beer_select.tolist())
