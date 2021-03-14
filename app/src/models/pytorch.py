@@ -21,9 +21,8 @@ class PytorchMultiClass(nn.Module):
     def __init__(self, num_features):
         super(PytorchMultiClass, self).__init__()
         
-        self.layer_1 = nn.Linear(num_features, 128)
-        self.layer_2 = nn.Linear(128, 128)
-        self.layer_out = nn.Linear(128, 104)
+        self.layer_1 = nn.Linear(num_features,24)
+        self.layer_out = nn.Linear(24, 104)
         self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
