@@ -4,7 +4,7 @@ import torch
 import joblib
 import pandas as pd
 from src.models.data_process import DataReader
-from src.models.pytorch import PytorchMultiClass
+from src.models.pytorch import PytorchMultiClass, get_device
 
 app = FastAPI()
 data_reader = DataReader()
@@ -46,7 +46,7 @@ def predict(brewery_name: str, review_aroma:float, review_appearance:float, revi
     output = beer_select(obs).argmax(dim=1)
     target_encode = joblib.load('target.joblib')
     pred = target_encode.inverse_transform(output)
-    return JSONResponse(pred.tolist())
+    return JSONResponse(pred.tolist())[0]
 
 @app.post("/type/beers")
 def predict(brewery_name: str,	review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
@@ -73,4 +73,4 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
 def print_model():
     beer_select = PytorchMultiClass(5)
     beer_select.load_state_dict(torch.load('pytorch_beer_selector.pt'))
-    return JSONResponse(print(beer_select).tolist())[0]
+    return print(beer_select)
