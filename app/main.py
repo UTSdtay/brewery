@@ -26,7 +26,7 @@ def format_features(brewery_name: str,	review_aroma:float, review_appearance:flo
         'review_taste': [review_taste]
     }
 	
-@app.get("/type/beer")
+@app.post("/type/beer")
 def predict(brewery_name: str, review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
     features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
     obs = pd.DataFrame(features)
@@ -47,7 +47,7 @@ def predict(brewery_name: str, review_aroma:float, review_appearance:float, revi
     pred = target_encode.inverse_transform(output)
     return JSONResponse(pred.tolist())
 
-@app.get("/type/beers")
+@app.post("/type/beers")
 def predict(brewery_name: str,	review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
     features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
     obs = pd.DataFrame(features)
@@ -67,3 +67,5 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
     target_encode = joblib.load('../src/models/target.joblib')
     pred = target_encode.inverse_transform(output)
     return JSONResponse(pred.tolist())
+
+@app.get("/model/architecture/")
