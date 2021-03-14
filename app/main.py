@@ -26,7 +26,28 @@ def format_features(brewery_name: str,	review_aroma:float, review_appearance:flo
         'review_taste': [review_taste]
     }
 	
-@app.get("/beerselection")
+@app.get("/type/beer")
+def predict(brewery_name: str, review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
+    features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
+    obs = pd.DataFrame(features)
+    brew_encode = joblib.load('../src/models/brewnames.joblib')
+    obs['brewery_name']=brew_encode.transform(obs['brewery_name'])
+    scale = joblib.load('../src/models/stdscale.joblib')
+    obs[num_cols] = scale.transform(obs[num_cols])
+    obs.brewery_name=obs.brewery_name.astype(int)
+    obs = obs.to_numpy()
+    obs = torch.from_numpy(obs)
+    device = get_device()
+    beer_select = PytorchMultiClass(obs.shape[1])
+    beer_select.load_state_dict(torch.load('../src/models/pytorch_beer_selector.pt'))
+    beer_select.eval()
+    obs = obs.float()
+    output = beer_select(obs).argmax(dim=1)
+    target_encode = joblib.load('../src/models/target.joblib')
+    pred = target_encode.inverse_transform(output)
+    return JSONResponse(pred.tolist())
+
+@app.get("/type/beers")
 def predict(brewery_name: str,	review_aroma:float, review_appearance:float, review_palate: float, review_taste: float):
     features = format_features(brewery_name, review_aroma, review_appearance, review_palate, review_taste)
     obs = pd.DataFrame(features)
@@ -45,4 +66,4 @@ def predict(brewery_name: str,	review_aroma:float, review_appearance:float, revi
     output = beer_select(obs).argmax(dim=1)
     target_encode = joblib.load('../src/models/target.joblib')
     pred = target_encode.inverse_transform(output)
-    return print(pred)
+    return JSONResponse(pred.tolist())
