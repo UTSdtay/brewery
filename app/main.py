@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
 import torch
+import joblib
 import pandas as pd
-from data_process import DataReader
+from src.models.data_process import DataReader
 from pytorch import PytorchMultiClass
 
 app = FastAPI()
