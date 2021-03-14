@@ -9,7 +9,7 @@ from src.models.pytorch import PytorchMultiClass
 app = FastAPI()
 data_reader = DataReader()
 
-beer_select = PytorchMultiClass(obs_tensor.shape[1])
+beer_select = PytorchMultiClass()
 beer_select.load_state_dict(torch.load('../app/src/models/pytorch_beer_selector.pt'))
 
 @app.get("/")
