@@ -12,7 +12,7 @@ num_cols = ['review_aroma', 'review_appearance', 'review_palate', 'review_taste'
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Beers"}
+    return {"Hello": "The objective of this app is to produce beer selections based on the inputs: brewery_name, review_appearance, review_aroma, review_palate, review_taste. I hope you enjoy it!"}
 	
 @app.get('/health', status_code=200)
 def healthcheck():
